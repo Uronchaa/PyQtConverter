@@ -14,6 +14,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
+        self.setFixedSize(self.size())
 
         self.pushButton.clicked.connect(self.get_file_path)
         self.pushButton_2.clicked.connect(self.convert_qt_2_py)
