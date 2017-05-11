@@ -24,6 +24,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def convert_qt_2_py(self):
         convert_qt_2_py(self.lineEdit.text())
+        # TODO: send message after successful convert
 
 
 if __name__ == "__main__":
