@@ -27,8 +27,7 @@ def convert_qt_2_py(filepath):
     fileName = str(filepath)  # get file name with path
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
-    command = "cd " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[:-2] + "py"  # shell command
-    # FIXME: error if not on same drive -> launch from absolute path
+    command = "cd/d " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[:-2] + "py"  # shell command
     # TODO: try fix for class names in ui to py files
     os.popen(command)
 
