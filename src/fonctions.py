@@ -18,7 +18,7 @@ def get_file_path(Window):
     Window.lineEdit.setText(openFileName)
 
 
-def convert_qt_2_py(filepath):
+def convert_qt_2_py(filepath, qtver=5):
     """
     This function is used to convert the selected .ui file
     :param filepath:
@@ -27,7 +27,12 @@ def convert_qt_2_py(filepath):
     fileName = str(filepath)  # get file name with path
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
-    command = "cd/d " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[:-2] + "py"  # shell command
+    if qtver == 5:
+        command = "cd/d " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[
+                                                                                    :-2] + "py"  # shell command
+    elif qtver == 4:
+        command = "cd/d " + folderPath + " && C://Python35//envs//root34//Library//bin//pyuic4 -x " + justFileName + " -o " + justFileName[
+                                                                                                                              :-2] + "py"  # shell command
     # TODO: try fix for class names in ui to py files
     os.popen(command)
 
