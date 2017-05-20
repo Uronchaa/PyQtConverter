@@ -30,8 +30,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def messagebx(self):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
-        msg.setText("This is a messagebox")
-        msg.setWindowTitle("MessageBox demo")
+        msg.setText("Conversion successful")
+        msg.setWindowTitle("Information")
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
         # TODO: custom reusable message box
