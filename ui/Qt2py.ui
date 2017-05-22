@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
-    <height>166</height>
+    <width>342</width>
+    <height>219</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,10 +23,10 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>0</y>
+      <x>40</x>
+      <y>10</y>
       <width>271</width>
-      <height>121</height>
+      <height>152</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -94,6 +94,20 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>use alt interpreter</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2"/>
+       </item>
+      </layout>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -102,7 +116,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>368</width>
+     <width>342</width>
      <height>21</height>
     </rect>
    </property>

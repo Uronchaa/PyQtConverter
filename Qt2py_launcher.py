@@ -23,9 +23,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         get_file_path(self)
 
     def convert_qt_2_py(self):
-        # convert_qt_2_py(self.lineEdit.text(), qtver=4)
+        convert_qt_2_py(self.lineEdit.text(), qtver=5)
         self.messagebx()
-        # TODO: send message after successful convert
+
 
     def messagebx(self):
         msg = QMessageBox()
