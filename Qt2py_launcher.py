@@ -4,7 +4,7 @@
 import sys, os
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from ui.Qt2py import *
 from src.fonctions import *
@@ -24,6 +24,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def convert_qt_2_py(self):
         convert_qt_2_py(self.lineEdit.text())
+        self.messagebx()
+        # TODO: send message after successful convert
+
+    def messagebx(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Conversion successful")
+        msg.setWindowTitle("Information")
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()
+        # TODO: custom reusable message box
 
 
 if __name__ == "__main__":
