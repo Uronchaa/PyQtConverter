@@ -29,6 +29,7 @@ def convert_qt_2_py(filepath):
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
     command = "cd/d " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[:-2] + "py"  # shell command
     # TODO: try fix for class names in ui to py files
+    # FIXME: cd/d not found in linux
     os.popen(command)
 
 #     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=None, shell=None)

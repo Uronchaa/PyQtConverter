@@ -25,7 +25,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def convert_qt_2_py(self):
         convert_qt_2_py(self.lineEdit.text())
         self.messagebx()
-        # TODO: send message after successful convert
+        # FIXME: no error management!
 
     def messagebx(self):
         msg = QMessageBox()
