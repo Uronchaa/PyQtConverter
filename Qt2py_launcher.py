@@ -23,8 +23,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         get_file_path(self)
 
     def convert_qt_2_py(self):
-        convert_qt_2_py(self.lineEdit.text())
-        self.messagebx()
+        try:
+            convert_qt_2_py(self.lineEdit.text())
+        except ValueError as e:
+            print(type(e).__name__, ": ", *e.args)
+        except OSError as e:
+            print("truc")
+            return
+        else:
+            self.messagebx()
         # FIXME: no error management!
 
     def messagebx(self):
