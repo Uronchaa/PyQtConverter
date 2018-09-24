@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import os
+import os, sys
 import subprocess
 
 from PyQt5.QtWidgets import QFileDialog
@@ -25,14 +25,20 @@ def convert_qt_2_py(filepath):
     :return:
     """
     fileName = str(filepath)  # get file name with path
+    if fileName == "":
+        tb = None
+        raise ValueError("Field is empty").with_traceback(tb)
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
-    command = "cd/d " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[:-2] + "py"  # shell command
+    command = ["pyuic5.bat", "-x", justFileName, "-o", justFileName[:-2] + "py"]
     # TODO: try fix for class names in ui to py files
-    # FIXME: cd/d not found in linux
-    os.popen(command)
-
-#     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=None, shell=None)
-# # FIXME: crash after launch process
-#     # launch the shell command
-#     output = process.communicate()
+    try:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=None, shell=False, cwd=folderPath)
+        # launch the shell command
+        output = process.communicate()
+        print('e')
+    except FileNotFoundError as ex:
+        print("pouet!")
+    except Exception as ex:
+        import traceback
+        print(traceback.format_exc())
