@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from ui.Qt2py import *
 from src.fonctions import *
+from src import messbox
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -25,11 +26,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def convert_qt_2_py(self):
         try:
             convert_qt_2_py(self.lineEdit.text())
-        except ValueError as e:
-            print(type(e).__name__, ": ", *e.args)
-        except OSError as e:
-            print("truc")
-            return
+        except Exception as e:
+            # messbox.displayError(e)
+            import traceback
+            print(traceback.format_exc())
         else:
             self.messagebx()
         # FIXME: no error management!

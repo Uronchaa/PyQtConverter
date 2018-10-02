@@ -26,19 +26,21 @@ def convert_qt_2_py(filepath):
     """
     fileName = str(filepath)  # get file name with path
     if fileName == "":
-        tb = None
+        tb = sys.exc_info()
         raise ValueError("Field is empty").with_traceback(tb)
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
     command = ["pyuic5.bat", "-x", justFileName, "-o", justFileName[:-2] + "py"]
     # TODO: try fix for class names in ui to py files
+
     try:
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=None, shell=False, cwd=folderPath)
-        # launch the shell command
-        output = process.communicate()
-        print('e')
-    except FileNotFoundError as ex:
-        print("pouet!")
-    except Exception as ex:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=folderPath)
+    except OSError:
+        raise
+    except Exception as e:
         import traceback
         print(traceback.format_exc())
+    else:
+        output, err = process.communicate()
+        if process.returncode != 0:
+            raise ChildProcessError(err.decode('UTF-8'))
