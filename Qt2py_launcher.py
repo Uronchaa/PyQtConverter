@@ -26,10 +26,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def convert_qt_2_py(self):
         try:
             convert_qt_2_py(self.lineEdit.text())
-        except Exception as e:
-            # messbox.displayError(e)
+
+        except ChildProcessError as e:
+            messbox.displayError(e)
+            # FIXME: error does not display correctly
+        except ValueError as e:
+            messbox.displayError(e)
+        except OSError as e:
+            messbox.displayError(e)
+        except Exception:
             import traceback
             print(traceback.format_exc())
+
         else:
             self.messagebx()
         # FIXME: no error management!

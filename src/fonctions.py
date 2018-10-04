@@ -26,8 +26,7 @@ def convert_qt_2_py(filepath):
     """
     fileName = str(filepath)  # get file name with path
     if fileName == "":
-        tb = sys.exc_info()
-        raise ValueError("Field is empty").with_traceback(tb)
+        raise ValueError("Field is empty")
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
     command = ["pyuic5.bat", "-x", justFileName, "-o", justFileName[:-2] + "py"]
@@ -36,10 +35,11 @@ def convert_qt_2_py(filepath):
     try:
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=folderPath)
     except OSError:
+        process.kill()
         raise
-    except Exception as e:
-        import traceback
-        print(traceback.format_exc())
+    # except Exception as e:
+    #     import traceback
+    #     print(traceback.format_exc())
     else:
         output, err = process.communicate()
         if process.returncode != 0:
