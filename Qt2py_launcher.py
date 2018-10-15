@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 # Import packages
-import sys, os
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from ui.Qt2py import *
