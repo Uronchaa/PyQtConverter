@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from ui.Qt2py import *
 from src.fonctions import *
+from src import messbox
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -23,9 +24,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         get_file_path(self)
 
     def convert_qt_2_py(self):
-        convert_qt_2_py(self.lineEdit.text())
-        self.messagebx()
-        # FIXME: no error management!
+        try:
+            convert_qt_2_py(self.lineEdit.text())
+
+        except ChildProcessError as e:
+            messbox.displayError(errtext="ChildProcessError", info=e.args[0])
+        except ValueError as e:
+            pass
+        except OSError as e:
+            err = messbox.extractOSError(e)
+            messbox.displayError(**err)
+        except Exception:
+            import traceback
+            print(traceback.format_exc())
+
+        else:
+            self.messagebx()
 
     def messagebx(self):
         msg = QMessageBox()
@@ -34,7 +48,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         msg.setWindowTitle("Information")
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
-        # TODO: custom reusable message box
 
 
 if __name__ == "__main__":
