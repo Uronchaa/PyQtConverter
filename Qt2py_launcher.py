@@ -28,19 +28,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             convert_qt_2_py(self.lineEdit.text())
 
         except ChildProcessError as e:
-            messbox.displayError(e)
-            # FIXME: error does not display correctly
+            messbox.displayError(errtext="ChildProcessError", info=e.args[0])
         except ValueError as e:
-            messbox.displayError(e)
+            pass
         except OSError as e:
-            messbox.displayError(e)
+            err = messbox.extractOSError(e)
+            messbox.displayError(**err)
         except Exception:
             import traceback
             print(traceback.format_exc())
 
         else:
             self.messagebx()
-        # FIXME: no error management!
 
     def messagebx(self):
         msg = QMessageBox()
@@ -49,7 +48,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         msg.setWindowTitle("Information")
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
-        # TODO: custom reusable message box
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@
 
 import os, sys
 import subprocess
+import traceback
 
 from PyQt5.QtWidgets import QFileDialog
 
@@ -35,7 +36,6 @@ def convert_qt_2_py(filepath):
     try:
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=folderPath)
     except OSError:
-        process.kill()
         raise
     # except Exception as e:
     #     import traceback
