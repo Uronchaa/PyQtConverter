@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import os
+import os, sys
 import subprocess
+import traceback
 
 from PyQt5.QtWidgets import QFileDialog
 
@@ -25,13 +26,21 @@ def convert_qt_2_py(filepath):
     :return:
     """
     fileName = str(filepath)  # get file name with path
+    if fileName == "":
+        raise ValueError("Field is empty")
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
-    command = "cd/d " + folderPath + " && pyuic5 -x " + justFileName + " -o " + justFileName[:-2] + "py"  # shell command
+    command = ["pyuic5.bat", "-x", justFileName, "-o", justFileName[:-2] + "py"]
     # TODO: try fix for class names in ui to py files
-    os.popen(command)
 
-#     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=None, shell=None)
-# # FIXME: crash after launch process
-#     # launch the shell command
-#     output = process.communicate()
+    try:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=folderPath)
+    except OSError:
+        raise
+    # except Exception as e:
+    #     import traceback
+    #     print(traceback.format_exc())
+    else:
+        output, err = process.communicate()
+        if process.returncode != 0:
+            raise ChildProcessError(err.decode('UTF-8'))
