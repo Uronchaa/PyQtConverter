@@ -30,7 +30,10 @@ def convert_qt_2_py(filepath):
         raise ValueError("Field is empty")
     folderPath = str(os.path.dirname(fileName))  # get path without file name
     justFileName = str(os.path.basename(fileName))  # get just file name from complete path
-    command = ["pyuic5.bat", "-x", justFileName, "-o", justFileName[:-2] + "py"]
+    command_name = "pyuic5"
+    if sys.platform == "win32":
+        command_name = command_name + ".bat"
+    command = [command_name, "-x", justFileName, "-o", justFileName[:-2] + "py"]
     # TODO: try fix for class names in ui to py files
 
     try:
